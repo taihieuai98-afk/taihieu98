@@ -414,6 +414,134 @@
     }
     .footer-social a:hover { background: var(--purple); }
 
+    /* ════════════════ PAYMENT MODAL ════════════════ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(5,4,20,.85); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: #16133a; border: 1px solid rgba(255,255,255,.12);
+      border-radius: 24px; width: 100%; max-width: 460px;
+      padding: 32px; position: relative;
+      transform: translateY(24px);
+      transition: transform .3s;
+      max-height: 90vh; overflow-y: auto;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+
+    .modal-close {
+      position: absolute; top: 16px; right: 18px;
+      background: rgba(255,255,255,.08); border: none; border-radius: 50%;
+      width: 32px; height: 32px; color: #fff; font-size: 1rem;
+      cursor: pointer; display: grid; place-items: center;
+      transition: background .2s;
+    }
+    .modal-close:hover { background: rgba(255,255,255,.18); }
+
+    .modal-header { margin-bottom: 20px; }
+    .modal-header .label {
+      font-size: .75rem; font-weight: 700; color: var(--pink);
+      text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px;
+    }
+    .modal-header h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
+    .modal-price { display: flex; align-items: baseline; gap: 10px; }
+    .modal-price .amount { font-size: 1.6rem; font-weight: 900; color: var(--cyan); }
+    .modal-price .original { font-size: .9rem; color: rgba(255,255,255,.35); text-decoration: line-through; }
+
+    /* method tabs */
+    .pay-tabs {
+      display: flex; gap: 8px; margin-bottom: 20px;
+    }
+    .pay-tab {
+      flex: 1; padding: 10px 6px; border-radius: 12px; border: none; cursor: pointer;
+      background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.6); font-size: .8rem; font-weight: 700;
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      transition: all .2s;
+    }
+    .pay-tab .tab-icon { font-size: 1.4rem; }
+    .pay-tab:hover { border-color: rgba(255,255,255,.25); color: #fff; }
+    .pay-tab.active { border-color: var(--purple); background: rgba(108,63,245,.2); color: #fff; }
+
+    /* tab content */
+    .pay-content { display: none; }
+    .pay-content.active { display: block; }
+
+    .qr-wrap {
+      background: #fff; border-radius: 16px;
+      padding: 16px; display: flex; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .qr-wrap svg { width: 160px; height: 160px; }
+
+    .pay-instruction {
+      background: rgba(255,255,255,.05); border-radius: 12px;
+      padding: 14px 16px; font-size: .83rem;
+      color: rgba(255,255,255,.7); line-height: 1.7; margin-bottom: 16px;
+    }
+    .pay-instruction strong { color: #fff; }
+
+    .bank-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.07);
+      font-size: .85rem;
+    }
+    .bank-row:last-child { border: none; }
+    .bank-row .bank-label { color: rgba(255,255,255,.45); }
+    .bank-row .bank-val   { font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px; }
+    .copy-btn {
+      background: rgba(108,63,245,.3); border: none; border-radius: 6px;
+      color: var(--cyan); font-size: .7rem; font-weight: 700;
+      padding: 3px 8px; cursor: pointer; transition: background .2s;
+    }
+    .copy-btn:hover { background: rgba(108,63,245,.6); }
+    .copy-btn.copied { background: rgba(16,185,129,.3); color: #6ee7b7; }
+
+    .sepay-status {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(0,229,255,.08); border: 1px solid rgba(0,229,255,.3);
+      border-radius: 12px; padding: 12px 16px; margin-bottom: 16px;
+      font-size: .85rem; font-weight: 600; color: var(--cyan);
+    }
+    .sepay-status.paid {
+      background: rgba(16,185,129,.15); border-color: rgba(16,185,129,.4); color: #6ee7b7;
+    }
+    .sepay-dot {
+      width: 9px; height: 9px; border-radius: 50%; background: var(--cyan);
+      animation: sepay-pulse 1.4s ease-in-out infinite; flex-shrink: 0;
+    }
+    @keyframes sepay-pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.7); } }
+
+    .modal-footer-note {
+      margin-top: 18px; text-align: center;
+      font-size: .78rem; color: rgba(255,255,255,.35); line-height: 1.6;
+    }
+    .modal-confirm {
+      width: 100%; margin-top: 18px; padding: 14px;
+      font-size: .95rem; border-radius: 30px;
+    }
+
+    /* btn mua ngay on card */
+    .btn-buy {
+      display: block; width: 100%; margin-top: 16px;
+      padding: 11px; border-radius: 30px; text-align: center;
+      background: rgba(108,63,245,.2); border: 1.5px solid rgba(108,63,245,.5);
+      color: #fff; font-size: .88rem; font-weight: 700;
+      cursor: pointer; transition: all .2s; font-family: inherit;
+    }
+    .btn-buy:hover {
+      background: var(--purple);
+      border-color: var(--purple);
+      box-shadow: 0 6px 24px rgba(108,63,245,.45);
+      transform: translateY(-1px);
+    }
+
     /* ════════════════ FLOATING BUTTONS ════════════════ */
     .float-wrap {
       position: fixed; bottom: 28px; right: 28px; z-index: 500;
@@ -563,6 +691,7 @@
         <div class="price"><s>1,200,000₫</s> 599,000₫</div>
         <span class="badge-level">Mới bắt đầu</span>
       </div>
+      <button class="btn-buy" onclick="openPayment('AI Căn Bản','599,000₫','1,200,000₫',599000)">Mua ngay →</button>
     </div>
     <div class="course-card">
       <div class="card-icon icon-cyan">💬</div>
@@ -572,6 +701,7 @@
         <div class="price"><s>1,500,000₫</s> 799,000₫</div>
         <span class="badge-level">Trung cấp</span>
       </div>
+      <button class="btn-buy" onclick="openPayment('Prompt Engineering','799,000₫','1,500,000₫',799000)">Mua ngay →</button>
     </div>
     <div class="course-card">
       <div class="card-icon icon-pink">📊</div>
@@ -581,6 +711,7 @@
         <div class="price"><s>2,500,000₫</s> 1,299,000₫</div>
         <span class="badge-level">Trung cấp</span>
       </div>
+      <button class="btn-buy" onclick="openPayment('Machine Learning','1,299,000₫','2,500,000₫',1299000)">Mua ngay →</button>
     </div>
     <div class="course-card">
       <div class="card-icon icon-orange">🔥</div>
@@ -590,6 +721,7 @@
         <div class="price"><s>3,500,000₫</s> 1,899,000₫</div>
         <span class="badge-level">Nâng cao</span>
       </div>
+      <button class="btn-buy" onclick="openPayment('AI Agent & LLM','1,899,000₫','3,500,000₫',1899000)">Mua ngay →</button>
     </div>
   </div>
 </section>
@@ -659,7 +791,7 @@
         <li><span class="cross">✗</span> Mentor 1-1</li>
         <li><span class="cross">✗</span> Chứng chỉ</li>
       </ul>
-      <a href="#contact" class="btn btn-outline" style="width:100%;text-align:center;display:block;">Đăng ký</a>
+      <button class="btn btn-outline" style="width:100%;text-align:center;display:block;" onclick="openPayment('Gói Cơ Bản – 1 khóa học','599,000₫','',599000)">Đăng ký ngay</button>
     </div>
     <div class="pricing-card popular">
       <div class="popular-badge">⭐ Phổ biến nhất</div>
@@ -674,7 +806,7 @@
         <li><span class="tick">✓</span> Mentor 1-1 (2 buổi/tháng)</li>
         <li><span class="tick">✓</span> Chứng chỉ hoàn thành</li>
       </ul>
-      <a href="#contact" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Đăng ký ngay</a>
+      <button class="btn btn-primary" style="width:100%;text-align:center;display:block;" onclick="openPayment('Gói Pro – Toàn bộ khóa học','2,499,000₫','',2499000)">Đăng ký ngay</button>
     </div>
   </div>
 </section>
@@ -770,10 +902,108 @@
   <p>Được xây dựng với ❤️ để đưa AI đến mọi người Việt Nam.</p>
 </footer>
 
+<!-- ═══════════ PAYMENT MODAL ═══════════ -->
+<div class="modal-overlay" id="payModal" onclick="closePaymentOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closePayment()">✕</button>
+
+    <div class="modal-header">
+      <div class="label">Thanh toán khoá học</div>
+      <h3 id="modalCourseName"></h3>
+      <div class="modal-price">
+        <span class="amount" id="modalPrice"></span>
+        <span class="original" id="modalOriginal"></span>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="pay-tabs">
+      <button class="pay-tab active" onclick="switchTab('momo',this)">
+        <span class="tab-icon">🌸</span>MoMo
+      </button>
+      <button class="pay-tab" onclick="switchTab('zalopay',this)">
+        <span class="tab-icon">💙</span>ZaloPay
+      </button>
+      <button class="pay-tab" onclick="switchTab('bank',this)">
+        <span class="tab-icon">🏦</span>Chuyển khoản
+      </button>
+    </div>
+
+    <!-- MoMo -->
+    <div class="pay-content active" id="tab-momo">
+      <div class="qr-wrap">
+        <img src="qr-payment.jpg" width="200" height="200" alt="QR MoMo – NGUYỄN TÀI HIẾU" style="border-radius:8px;object-fit:contain;" />
+      </div>
+      <div class="pay-instruction">
+        Mở app <strong>MoMo</strong> → chọn <strong>Quét mã</strong> → quét QR trên.<br>
+        Hoặc chuyển thẳng đến số: <strong>0888845098</strong> (AI Master).<br>
+        Nội dung: <strong>Tên bạn – tên khoá học</strong>
+      </div>
+    </div>
+
+    <!-- ZaloPay -->
+    <div class="pay-content" id="tab-zalopay">
+      <div class="qr-wrap">
+        <img src="qr-payment.jpg" width="200" height="200" alt="QR ZaloPay – NGUYỄN TÀI HIẾU" style="border-radius:8px;object-fit:contain;" />
+      </div>
+      <div class="pay-instruction">
+        Mở app <strong>ZaloPay</strong> → chọn <strong>Quét QR</strong> → quét mã trên.<br>
+        Hoặc tìm kiếm số điện thoại: <strong>0888845098</strong>.<br>
+        Nội dung: <strong>Tên bạn – tên khoá học</strong>
+      </div>
+    </div>
+
+    <!-- Chuyển khoản – tự động qua SePay -->
+    <div class="pay-content" id="tab-bank">
+      <div class="sepay-status" id="sepayStatus">
+        <span class="sepay-dot"></span> Đang tạo mã đơn hàng...
+      </div>
+      <div class="qr-wrap" id="sepayQrWrap" style="display:none;">
+        <img id="sepayQrImg" src="" width="200" height="200" alt="QR SePay chuyển khoản tự động" style="border-radius:8px;object-fit:contain;" />
+      </div>
+      <div style="background:rgba(255,255,255,.05);border-radius:14px;padding:16px 18px;margin-bottom:16px;">
+        <div class="bank-row">
+          <span class="bank-label">Ngân hàng</span>
+          <span class="bank-val" id="sepayBankName">—</span>
+        </div>
+        <div class="bank-row">
+          <span class="bank-label">Số tài khoản</span>
+          <span class="bank-val">
+            <span id="sepayAccNumber">—</span>
+            <button class="copy-btn" onclick="copyText(document.getElementById('sepayAccNumber').textContent,this)">Sao chép</button>
+          </span>
+        </div>
+        <div class="bank-row">
+          <span class="bank-label">Chủ tài khoản</span>
+          <span class="bank-val" id="sepayAccName">—</span>
+        </div>
+        <div class="bank-row">
+          <span class="bank-label">Nội dung CK</span>
+          <span class="bank-val" style="flex-direction:column;align-items:flex-start;gap:4px;">
+            <span id="sepayOrderCode">—</span>
+            <button class="copy-btn" onclick="copyText(document.getElementById('sepayOrderCode').textContent,this)">Sao chép</button>
+          </span>
+        </div>
+      </div>
+      <div class="pay-instruction">
+        ⚠️ Quét mã QR hoặc chuyển khoản đúng <strong>nội dung</strong> ở trên. Hệ thống <strong>SePay</strong> tự động phát hiện giao dịch và kích hoạt khoá học trong vài giây — không cần bấm xác nhận.
+      </div>
+    </div>
+
+    <button class="btn btn-primary modal-confirm" id="manualConfirmBtn" onclick="confirmPayment()">
+      Tôi đã thanh toán xong ✓
+    </button>
+    <p class="modal-footer-note">
+      Sau khi thanh toán, kiểm tra email để nhận link truy cập khoá học.<br>
+      Hỗ trợ: <strong style="color:rgba(255,255,255,.6)">nguyentaihieuvp98@gmail.com</strong> · Zalo: <strong style="color:rgba(255,255,255,.6)">0888845098</strong>
+    </p>
+  </div>
+</div>
+
 <!-- ═══════════ FLOATING BUTTONS ═══════════ -->
 <div class="float-wrap">
   <button class="float-btn btn-scroll" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Lên đầu trang">↑</button>
-  <a class="float-btn btn-zalo" href="https://zalo.me/0123456789" target="_blank" title="Chat Zalo ngay">💬</a>
+  <a class="float-btn btn-zalo" href="https://zalo.me/0888845098" target="_blank" title="Chat Zalo ngay">💬</a>
 </div>
 
 <script>
@@ -811,6 +1041,136 @@
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
     if (!isOpen) item.classList.add('open');
   }
+
+  /* ── payment modal ── */
+  let currentCourse = '';
+  let currentAmount = 0;
+  let sepayOrderCode = null;
+  let sepayPollTimer = null;
+
+  function openPayment(name, price, original, amount) {
+    currentCourse = name;
+    currentAmount = amount || 0;
+    document.getElementById('modalCourseName').textContent = name;
+    document.getElementById('modalPrice').textContent = price;
+    const orig = document.getElementById('modalOriginal');
+    orig.textContent = original ? original : '';
+    orig.style.display = original ? 'inline' : 'none';
+    resetSepayTab();
+    switchTab('momo', document.querySelector('.pay-tab'));
+    document.getElementById('payModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePayment() {
+    document.getElementById('payModal').classList.remove('open');
+    document.body.style.overflow = '';
+    stopSepayPolling();
+  }
+
+  function closePaymentOutside(e) {
+    if (e.target === document.getElementById('payModal')) closePayment();
+  }
+
+  function switchTab(id, btn) {
+    document.querySelectorAll('.pay-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.pay-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    if (btn) btn.classList.add('active');
+
+    const manualBtn = document.getElementById('manualConfirmBtn');
+    if (id === 'bank') {
+      manualBtn.style.display = 'none';
+      if (!sepayOrderCode) createSepayOrder();
+    } else {
+      manualBtn.style.display = 'block';
+    }
+  }
+
+  function resetSepayTab() {
+    stopSepayPolling();
+    sepayOrderCode = null;
+    document.getElementById('sepayQrWrap').style.display = 'none';
+    const status = document.getElementById('sepayStatus');
+    status.className = 'sepay-status';
+    status.innerHTML = '<span class="sepay-dot"></span> Đang tạo mã đơn hàng...';
+    document.getElementById('sepayBankName').textContent = '—';
+    document.getElementById('sepayAccNumber').textContent = '—';
+    document.getElementById('sepayAccName').textContent = '—';
+    document.getElementById('sepayOrderCode').textContent = '—';
+  }
+
+  async function createSepayOrder() {
+    try {
+      const res = await fetch('/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ course: currentCourse, amount: currentAmount }),
+      });
+      if (!res.ok) throw new Error('create-order failed');
+      const data = await res.json();
+
+      sepayOrderCode = data.code;
+      document.getElementById('sepayQrImg').src = data.qrUrl;
+      document.getElementById('sepayQrWrap').style.display = 'flex';
+      document.getElementById('sepayBankName').textContent = data.bankCode || '—';
+      document.getElementById('sepayAccNumber').textContent = data.accountNumber || '—';
+      document.getElementById('sepayAccName').textContent = data.accountName || '—';
+      document.getElementById('sepayOrderCode').textContent = data.code;
+      document.getElementById('sepayStatus').innerHTML = '<span class="sepay-dot"></span> Đang chờ thanh toán...';
+
+      startSepayPolling();
+    } catch (err) {
+      document.getElementById('sepayStatus').innerHTML = '⚠️ Không thể tạo đơn hàng. Vui lòng thử lại hoặc chọn phương thức khác.';
+    }
+  }
+
+  function startSepayPolling() {
+    stopSepayPolling();
+    sepayPollTimer = setInterval(async () => {
+      if (!sepayOrderCode) return;
+      try {
+        const res = await fetch('/api/order-status?code=' + encodeURIComponent(sepayOrderCode));
+        const data = await res.json();
+        if (data.status === 'paid') {
+          stopSepayPolling();
+          const status = document.getElementById('sepayStatus');
+          status.className = 'sepay-status paid';
+          status.innerHTML = '✓ Đã nhận thanh toán! Đang hoàn tất...';
+          setTimeout(() => { closePayment(); showPaymentSuccess(); }, 1200);
+        }
+      } catch (err) { /* bỏ qua, thử lại ở lần poll tiếp theo */ }
+    }, 3000);
+  }
+
+  function stopSepayPolling() {
+    if (sepayPollTimer) { clearInterval(sepayPollTimer); sepayPollTimer = null; }
+  }
+
+  function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Đã copy';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Sao chép'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function confirmPayment() {
+    closePayment();
+    showPaymentSuccess();
+  }
+
+  function showPaymentSuccess() {
+    const msg = document.getElementById('formMsg');
+    window.scrollTo({ top: document.getElementById('contact').offsetTop - 80, behavior: 'smooth' });
+    setTimeout(() => {
+      msg.className = 'form-msg success';
+      msg.textContent = '✓ Cảm ơn bạn! Vui lòng kiểm tra email để nhận link khoá học trong 15 phút.';
+      setTimeout(() => { msg.className = 'form-msg'; }, 6000);
+    }, 600);
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePayment(); });
 
   /* ── contact form ── */
   function handleSubmit(e) {
